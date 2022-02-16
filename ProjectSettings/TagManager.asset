@@ -8,11 +8,9 @@ TagManager:
   - Scoreboard
   - OutSideCollider
   - BoxCollide
-  - InsideCollider
   - Rotator
   - InsideCircle
   - Boxes
-  - Temp
   layers:
   - Default
   - TransparentFX

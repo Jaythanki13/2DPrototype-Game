@@ -5,17 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 50f;
-    private bool isReached = false;
+    public float speed = 30f;
+    public bool isReached = false;
     public Rigidbody2D rb;
 
-    private void Start()
+    public static Player playerInstance;
+
+    private void Awake()
     {
-        RandomRotator.randomRotatorInstance.RandomTime();
+        if (playerInstance == null)
+            playerInstance = this;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!isReached)
         {
@@ -23,11 +26,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "InsideCircle")
         {
-            Debug.Log("Inside Trigger Enter");
             rb.mass = 0f;
             rb.gravityScale = 1f;
             isReached = true;
@@ -41,16 +43,14 @@ public class Player : MonoBehaviour
 
         else if (collision.tag == "Boxes")
         {
-            Debug.Log("Collide to Box");
             collision.GetComponent<Collider2D>().isTrigger = false;
         }
     }
 
-    void OnTriggerExit2D(Collider2D coll)
+    private void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.tag == "Rotator")
         {
-            Debug.Log("Inside Trigger Exit");
             coll.GetComponent<Collider2D>().isTrigger = false;
             GetComponent<Collider2D>().isTrigger = false;
         }

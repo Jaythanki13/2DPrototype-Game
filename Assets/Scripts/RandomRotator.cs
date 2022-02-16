@@ -5,32 +5,65 @@ using UnityEngine;
 public class RandomRotator : MonoBehaviour
 {
     public static RandomRotator randomRotatorInstance;
+    int i, j;
+    float resetTimer = 0f;
+    //private float startDelay = 2.0f;
+    //float speedInterval = 0.5f;
 
     private void Awake()
     {
-        randomRotatorInstance = this;
+        if(randomRotatorInstance == null)
+            randomRotatorInstance = this;
+    }
+
+    private void Start()
+    {
+        RandomTime();
     }
 
     public void RandomTime()
     {
-        int i = Random.Range(0, 5);
+        i = Random.Range(1, 4);
+        StartCoroutine("RandomSpeed");
         Debug.Log("RandomTime :- " + i);
+        StartCoroutine("HoldSpeed");
     }
 
-    public void RandomCategory()
+    IEnumerator RandomSpeed()
     {
-        int j = Random.Range(0, 4);
+        yield return new WaitForSeconds(i);
+        RotateCircle.rotateCircleInstance.rotateSpeed += 80f;
+        Debug.Log("rotatorSpeed :- " + RotateCircle.rotateCircleInstance.rotateSpeed);
+    }
+
+    IEnumerator HoldSpeed()
+    {
+        j = Random.Range(1, 7);
+        yield return new WaitForSeconds(j);
+        //RotateCircle.rotateCircleInstance.rotateSpeed *= -0.8f;
+        RandomTime();
+        Debug.Log("HoldSpeed Time:- " + j);
+    }
+
+    /*public void RandomCategory()
+    {
+        j = Random.Range(1, 4);
         Debug.Log("RandomCategory :- " + j);
-    }
+        if (Player.playerInstance.isReached == true)
+        {
+            RotateCircle.rotateCircleInstance.rotateSpeed -= j;
+            Debug.Log("rotatorSpeed :- " + RotateCircle.rotateCircleInstance.rotateSpeed);
+        }
+    }*/
 
-    public void RandomReset()
+    /*public void RandomReset()
     {
-        float resetTimer = 5f;
+        resetTimer = 5f;
         Debug.Log("inside RandomReset:- " + resetTimer);
-    }
+    }*/
 
-    public void RandomRotate()
+    /*public void RandomRotate()
     {
-        Debug.Log("inside RandomRotator");
-    }
+        Debug.Log("inside RandomRotate function");
+    }*/
 }

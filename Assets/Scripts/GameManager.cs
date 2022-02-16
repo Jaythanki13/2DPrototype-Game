@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        gameManagerInstance = this;
+        if(gameManagerInstance == null)
+            gameManagerInstance = this;
     }
 
     public void RestartGame()
