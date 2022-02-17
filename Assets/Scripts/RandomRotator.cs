@@ -5,10 +5,7 @@ using UnityEngine;
 public class RandomRotator : MonoBehaviour
 {
     public static RandomRotator randomRotatorInstance;
-    int i, j;
-    float resetTimer = 0f;
-    //private float startDelay = 2.0f;
-    //float speedInterval = 0.5f;
+    int i, j, k;
 
     private void Awake()
     {
@@ -23,47 +20,50 @@ public class RandomRotator : MonoBehaviour
 
     public void RandomTime()
     {
-        i = Random.Range(1, 4);
-        StartCoroutine("RandomSpeed");
-        Debug.Log("RandomTime :- " + i);
-        StartCoroutine("HoldSpeed");
+        i = Random.Range(1, 4); //Get Random time
+        StartCoroutine("RandomSpeed"); //Get speed to increase
     }
 
     IEnumerator RandomSpeed()
     {
         yield return new WaitForSeconds(i);
-        RotateCircle.rotateCircleInstance.rotateSpeed += 80f;
-        Debug.Log("rotatorSpeed :- " + RotateCircle.rotateCircleInstance.rotateSpeed);
+        RotateCircle.rotateCircleInstance.rotateSpeed += 60f; //increase speed after getting Random Time
+        StartCoroutine("HoldSpeed");//Goes into HoldSpeed where it will hold for seconds
     }
 
     IEnumerator HoldSpeed()
     {
         j = Random.Range(1, 7);
-        yield return new WaitForSeconds(j);
-        //RotateCircle.rotateCircleInstance.rotateSpeed *= -0.8f;
-        RandomTime();
-        Debug.Log("HoldSpeed Time:- " + j);
+        yield return new WaitForSeconds(j); //Will Hold for seconds get in j
+        StartCoroutine("RandomCategory");//will start calling this function
     }
 
-    /*public void RandomCategory()
+    IEnumerator RandomCategory()
     {
-        j = Random.Range(1, 4);
-        Debug.Log("RandomCategory :- " + j);
-        if (Player.playerInstance.isReached == true)
+        yield return null;
+        k = Random.Range(0, 4); //will get any one value between this and will go into switch case
+
+        switch (k)
         {
-            RotateCircle.rotateCircleInstance.rotateSpeed -= j;
-            Debug.Log("rotatorSpeed :- " + RotateCircle.rotateCircleInstance.rotateSpeed);
+            case 0: //Anti Clockwise Rotation of Circle
+                RotateCircle.rotateCircleInstance.rotateSpeed *= -0.5f;
+                break;
+
+            case 1: //Clockwise Rotation of Circle
+                RotateCircle.rotateCircleInstance.rotateSpeed *= 1.2f;
+                break;
+
+            case 2: //Speed Decrease
+                int d = Random.Range(20, 30);
+                RotateCircle.rotateCircleInstance.rotateSpeed -= d;
+                break;
+
+            case 3: //Speed Increase
+                int s = Random.Range(80, 100);
+                RotateCircle.rotateCircleInstance.rotateSpeed -= s;
+                break;
         }
-    }*/
 
-    /*public void RandomReset()
-    {
-        resetTimer = 5f;
-        Debug.Log("inside RandomReset:- " + resetTimer);
-    }*/
-
-    /*public void RandomRotate()
-    {
-        Debug.Log("inside RandomRotate function");
-    }*/
+        StartCoroutine("RandomTime");
+    }
 }

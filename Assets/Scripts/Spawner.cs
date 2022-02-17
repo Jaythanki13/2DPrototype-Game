@@ -7,19 +7,51 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner spawnerInstance;
     public GameObject playerPrefab;
+    Touch touch;
 
-    void Update()
+    private float waitTime = 0.2f;
+    private float nextFire = 0.5f;
+    private float myTime = 0.0f;
+
+    private void Awake()
     {
-        if ((Input.touchCount > 0) || Input.GetMouseButtonDown(0))
+        if (spawnerInstance == null)
         {
-            SpawnPlayer();
+            spawnerInstance = this;
         }
     }
 
-    void SpawnPlayer()
+    void Update()
     {
-        Instantiate(playerPrefab, transform.position, transform.rotation);
-        Score.ballCount++;
+        /*for (int i = 0; i < Input.touchCount; ++i)
+        {
+            if (Input.GetTouch(i).phase == TouchPhase.Began)
+            {
+                Instantiate(playerPrefab, transform.position, transform.rotation);
+                Score.ballCount += 1;
+            }
+        }*/
+
+        myTime = myTime + Time.deltaTime;
+
+        if (Input.GetButton("Fire1") && myTime > nextFire)
+        {
+            nextFire = myTime + waitTime;
+            Instantiate(playerPrefab, transform.position, transform.rotation);
+            Score.ballCount += 1;
+
+            nextFire = nextFire - myTime;
+            myTime = 0.0f;
+
+        }
+
+        
+        /*if ((Input.touchCount == 1) || Input.GetButtonDown("Fire1") && Time.time > shootSpeed)
+        {
+            Instantiate(playerPrefab, transform.position, transform.rotation);
+            Score.ballCount++;
+        }*/
     }
 }

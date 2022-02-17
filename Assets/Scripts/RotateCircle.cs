@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RotateCircle : MonoBehaviour
 {
-    public float rotateSpeed = 130f;
+    public float rotateSpeed = 100f;
     public static RotateCircle rotateCircleInstance;
 
     private void Awake()
@@ -13,13 +13,6 @@ public class RotateCircle : MonoBehaviour
             rotateCircleInstance = this;
     }
 
-    private void Start()
-    {
-        //RandomRotator.randomRotatorInstance.RandomTime();
-        //StartCoroutine(RotateCircle());
-    }
-
-   
     // Update is called once per frame
     void Update()
     {

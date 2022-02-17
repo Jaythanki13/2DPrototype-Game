@@ -17,6 +17,5 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Score.ballCount = 0;
-        Debug.Log("END GAME..");
     }
 }
