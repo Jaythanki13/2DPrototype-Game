@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    //public float speed = 30f;
-    public float speed = 100f;
-    private bool isReached = false;
+    public float speed = 30f;
+    [HideInInspector]
+    public bool isReached = false;
     public Rigidbody2D rb;
-
     public static Player playerInstance;
 
     private void Awake()
@@ -18,27 +17,35 @@ public class Player : MonoBehaviour
             playerInstance = this;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Update is called once per frame
+    /*private void Update()
+    {*//*
         if ((Input.GetButtonDown("Jump")) || (Input.GetMouseButtonDown(0)))
         {
             rb.velocity = Vector2.up * speed;
         }
-
-        /*if (!isReached)
+*//*
+        if (!isReached)
         {
+            Debug.Log("enter");
             rb.MovePosition(rb.position + Vector2.up * speed * Time.deltaTime);
-        }*/
-    }
+        }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "InsideCircle")
         {
             rb.mass = 0f;
-            rb.gravityScale = 1f;
-            //isReached = true;
+            rb.gravityScale = 2f;
+            isReached = true;
+            //Debug.Log("isReached:- "+ isReached);
+
             GetComponent<Collider2D>().isTrigger = false;
         }
 
@@ -62,5 +69,23 @@ public class Player : MonoBehaviour
             /*rb.mass = 0f;
             rb.gravityScale = 1f;*/
         }
+    }
+
+    public void moveBody(Rigidbody2D rbnew)
+    {
+        rb = rbnew;
+        StartCoroutine(moveRigidBody());
+    }
+
+    IEnumerator moveRigidBody()
+    {
+        while (!isReached)
+        {
+            yield return null;
+            //Debug.Log(isReached);
+            //Debug.Log("enter");
+            rb.MovePosition(rb.position + Vector2.up * speed * Time.deltaTime);
+        }
+        StopAllCoroutines();
     }
 }

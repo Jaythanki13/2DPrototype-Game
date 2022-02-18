@@ -6,15 +6,11 @@ public class ObjectStack : MonoBehaviour
 {
     public List<GameObject> gameobjects = new List<GameObject>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        for(int i = 0; i < gameobjects.Count; i++)
-    }
+    public static ObjectStack objectStackInstance;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (objectStackInstance == null)
+            objectStackInstance = this;
     }
 }

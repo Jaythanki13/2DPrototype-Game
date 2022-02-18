@@ -28,7 +28,7 @@ public class RandomRotator : MonoBehaviour
     IEnumerator RandomSpeed()
     {
         yield return new WaitForSeconds(i);
-        RotateCircle.rotateCircleInstance.rotateSpeed += 40f; //increase speed after getting Random Time
+        RotateCircle.rotateCircleInstance.rotateSpeed += 30f; //increase speed after getting Random Time
         StartCoroutine("HoldSpeed");//Goes into HoldSpeed where it will hold for seconds
     }
 
@@ -60,7 +60,7 @@ public class RandomRotator : MonoBehaviour
                 break;
 
             case 3: //Speed Increase
-                int s = Random.Range(50, 60);
+                int s = Random.Range(30, 50);
                 RotateCircle.rotateCircleInstance.rotateSpeed += s;
                 break;
         }

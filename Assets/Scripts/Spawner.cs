@@ -11,6 +11,8 @@ public class Spawner : MonoBehaviour
     public static Spawner spawnerInstance;
     public GameObject playerPrefab;
     Touch touch;
+    int count = 0;
+    int temp = 0;
 
     /*private float waitTime = 0.2f;
     private float nextFire = 0.5f;
@@ -22,6 +24,10 @@ public class Spawner : MonoBehaviour
         {
             spawnerInstance = this;
         }
+    }
+    private void Start()
+    {
+        count = ObjectStack.objectStackInstance.gameobjects.Count;
     }
 
     void Update()
@@ -54,8 +60,19 @@ public class Spawner : MonoBehaviour
         
         if ((Input.touchCount > 0) || Input.GetMouseButtonDown(0))
         {
-            Instantiate(playerPrefab, transform.position, transform.rotation);
-            Score.ballCount--;
+            print("inside Update"+temp);
+            if(temp < count)
+            {
+                Player.playerInstance.moveBody(ObjectStack.objectStackInstance.gameobjects[temp].GetComponent<Rigidbody2D>());
+                Score.ballCount--;
+                print("Inside if.." + temp);
+                temp++;
+                
+            }
+             
+            //Player.playerInstance.rb = GameManager.gameManagerInstance.rb;
+            //Debug.Log("Player.playerInstance.rb : " + Player.playerInstance.rb);
+            //Instantiate(playerPrefab, transform.position, transform.rotation);
 
             if (Score.ballCount == 0)
             {
