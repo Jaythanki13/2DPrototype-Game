@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 30f;
-    public bool isReached = false;
+    //public float speed = 30f;
+    public float speed = 100f;
+    private bool isReached = false;
     public Rigidbody2D rb;
 
     public static Player playerInstance;
@@ -20,10 +21,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!isReached)
+        if ((Input.GetButtonDown("Jump")) || (Input.GetMouseButtonDown(0)))
+        {
+            rb.velocity = Vector2.up * speed;
+        }
+
+        /*if (!isReached)
         {
             rb.MovePosition(rb.position + Vector2.up * speed * Time.deltaTime);
-        }
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,7 +38,7 @@ public class Player : MonoBehaviour
         {
             rb.mass = 0f;
             rb.gravityScale = 1f;
-            isReached = true;
+            //isReached = true;
             GetComponent<Collider2D>().isTrigger = false;
         }
 
@@ -53,6 +59,8 @@ public class Player : MonoBehaviour
         {
             coll.GetComponent<Collider2D>().isTrigger = false;
             GetComponent<Collider2D>().isTrigger = false;
+            /*rb.mass = 0f;
+            rb.gravityScale = 1f;*/
         }
     }
 }

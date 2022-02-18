@@ -1,0 +1,3 @@
+rep "2D_ProtoypeGame@Jai_Workspace@cloud"
+  path "/"
+    smartbranch "/main"

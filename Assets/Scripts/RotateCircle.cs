@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RotateCircle : MonoBehaviour
 {
-    public float rotateSpeed = 100f;
+    public float rotateSpeed = 80f;
     public static RotateCircle rotateCircleInstance;
 
     private void Awake()

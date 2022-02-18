@@ -16,6 +16,7 @@ public class RandomRotator : MonoBehaviour
     private void Start()
     {
         RandomTime();
+        //RandomCategory();
     }
 
     public void RandomTime()
@@ -27,13 +28,13 @@ public class RandomRotator : MonoBehaviour
     IEnumerator RandomSpeed()
     {
         yield return new WaitForSeconds(i);
-        RotateCircle.rotateCircleInstance.rotateSpeed += 60f; //increase speed after getting Random Time
+        RotateCircle.rotateCircleInstance.rotateSpeed += 40f; //increase speed after getting Random Time
         StartCoroutine("HoldSpeed");//Goes into HoldSpeed where it will hold for seconds
     }
 
     IEnumerator HoldSpeed()
     {
-        j = Random.Range(1, 7);
+        j = Random.Range(1, 4);
         yield return new WaitForSeconds(j); //Will Hold for seconds get in j
         StartCoroutine("RandomCategory");//will start calling this function
     }
@@ -46,7 +47,7 @@ public class RandomRotator : MonoBehaviour
         switch (k)
         {
             case 0: //Anti Clockwise Rotation of Circle
-                RotateCircle.rotateCircleInstance.rotateSpeed *= -0.5f;
+                RotateCircle.rotateCircleInstance.rotateSpeed *= (-0.5f);
                 break;
 
             case 1: //Clockwise Rotation of Circle
@@ -54,16 +55,16 @@ public class RandomRotator : MonoBehaviour
                 break;
 
             case 2: //Speed Decrease
-                int d = Random.Range(20, 30);
+                int d = Random.Range(10, 20);
                 RotateCircle.rotateCircleInstance.rotateSpeed -= d;
                 break;
 
             case 3: //Speed Increase
-                int s = Random.Range(80, 100);
-                RotateCircle.rotateCircleInstance.rotateSpeed -= s;
+                int s = Random.Range(50, 60);
+                RotateCircle.rotateCircleInstance.rotateSpeed += s;
                 break;
         }
 
-        StartCoroutine("RandomTime");
+        StartCoroutine("HoldSpeed");
     }
 }

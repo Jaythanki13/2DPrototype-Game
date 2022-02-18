@@ -6,12 +6,12 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
-    public static int ballCount;
+    public static int ballCount = 40;
     public TMP_Text scoreText;
 
     void Start()
     {
-        ballCount = 0;
+        ballCount = 40;
         scoreText = GetComponent<TMP_Text>();
     }
 

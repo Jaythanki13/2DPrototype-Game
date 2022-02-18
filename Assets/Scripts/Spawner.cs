@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class Spawner : MonoBehaviour
     public GameObject playerPrefab;
     Touch touch;
 
-    private float waitTime = 0.2f;
+    /*private float waitTime = 0.2f;
     private float nextFire = 0.5f;
-    private float myTime = 0.0f;
+    private float myTime = 0.0f;*/
 
     private void Awake()
     {
@@ -34,24 +35,32 @@ public class Spawner : MonoBehaviour
             }
         }*/
 
-        myTime = myTime + Time.deltaTime;
+        /*myTime = myTime + Time.deltaTime;
 
         if (Input.GetButton("Fire1") && myTime > nextFire)
         {
             nextFire = myTime + waitTime;
             Instantiate(playerPrefab, transform.position, transform.rotation);
-            Score.ballCount += 1;
-
+            Score.ballCount -= 1;
             nextFire = nextFire - myTime;
             myTime = 0.0f;
 
-        }
+            if (Score.ballCount == 0)
+            {
+                SceneManager.LoadScene("WinScene");
+            }
+        }*/
 
         
-        /*if ((Input.touchCount == 1) || Input.GetButtonDown("Fire1") && Time.time > shootSpeed)
+        if ((Input.touchCount > 0) || Input.GetMouseButtonDown(0))
         {
             Instantiate(playerPrefab, transform.position, transform.rotation);
-            Score.ballCount++;
-        }*/
+            Score.ballCount--;
+
+            if (Score.ballCount == 0)
+            {
+                SceneManager.LoadScene("WinScene");
+            }
+        }
     }
 }
