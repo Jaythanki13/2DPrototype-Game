@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectStack : MonoBehaviour
 {
     public List<GameObject> gameobjects = new List<GameObject>();
+    public List<Transform> playerTransform = new List<Transform>();
 
     public static ObjectStack objectStackInstance;
 
@@ -13,4 +14,5 @@ public class ObjectStack : MonoBehaviour
         if (objectStackInstance == null)
             objectStackInstance = this;
     }
+
 }

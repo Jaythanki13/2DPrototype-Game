@@ -44,8 +44,6 @@ public class Player : MonoBehaviour
             rb.mass = 0f;
             rb.gravityScale = 2f;
             isReached = true;
-            //Debug.Log("isReached:- "+ isReached);
-
             GetComponent<Collider2D>().isTrigger = false;
         }
 
@@ -66,8 +64,6 @@ public class Player : MonoBehaviour
         {
             coll.GetComponent<Collider2D>().isTrigger = false;
             GetComponent<Collider2D>().isTrigger = false;
-            /*rb.mass = 0f;
-            rb.gravityScale = 1f;*/
         }
     }
 
@@ -82,10 +78,8 @@ public class Player : MonoBehaviour
         while (!isReached)
         {
             yield return null;
-            //Debug.Log(isReached);
-            //Debug.Log("enter");
             rb.MovePosition(rb.position + Vector2.up * speed * Time.deltaTime);
         }
-        StopAllCoroutines();
+        StopCoroutine(moveRigidBody());
     }
 }

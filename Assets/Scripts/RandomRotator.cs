@@ -51,7 +51,7 @@ public class RandomRotator : MonoBehaviour
                 break;
 
             case 1: //Clockwise Rotation of Circle
-                RotateCircle.rotateCircleInstance.rotateSpeed *= 1.2f;
+                RotateCircle.rotateCircleInstance.rotateSpeed *= 0.9f;
                 break;
 
             case 2: //Speed Decrease
